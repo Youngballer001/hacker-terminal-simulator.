@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+
+:root {
+  color-scheme: dark;
+  --bg: #050807;
+  --panel: #09110e;
+  --panel-top: #101a15;
+  --green: #65ff9a;
+  --green-dim: #2e9b5a;
+  --text: #c7e8d2;
+  --muted: #668574;
+  --border: #1b3828;
+  --red: #ff6262;
+  --yellow: #ffd166;
+  font-family: "Fira Code", Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 28px;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(23, 91, 52, .18), transparent 55%),
+    var(--bg);
+}
+
+.terminal-shell {
+  width: min(100%, 1000px);
+  min-height: min(720px, calc(100vh - 56px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--panel);
+  box-shadow: 0 0 55px rgba(34, 255, 119, .08), 0 24px 70px rgba(0, 0, 0, .55);
+}
+
+.terminal-header, .terminal-footer {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 18px;
+  background: var(--panel-top);
+}
+
+.terminal-header { border-bottom: 1px solid var(--border); }
+.terminal-footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 10px; letter-spacing: .07em; }
+
+.window-controls { display: flex; gap: 7px; }
+.control { width: 10px; height: 10px; border-radius: 50%; }
+.close { background: var(--red); }
+.minimize { background: var(--yellow); }
+.maximize { background: var(--green); }
+.window-title { margin: 0; color: var(--green); font-size: 11px; letter-spacing: .12em; }
+.window-title span { color: var(--muted); }
+.header-button {
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 6px 10px;
+  color: var(--green);
+  background: transparent;
+  font: inherit;
+  font-size: 10px;
+  cursor: pointer;
+}
+.header-button:hover { background: rgba(101, 255, 154, .09); }
+
+.terminal-screen {
+  flex: 1;
+  min-height: 570px;
+  padding: 25px clamp(16px, 4vw, 38px);
+  overflow-y: auto;
+  line-height: 1.7;
+  font-size: 13px;
+}
+.boot-screen p { margin: 0 0 4px; }
+.muted, .terminal-hint { color: var(--muted); }
+.boot-lines { margin-top: 16px; color: var(--green-dim); }
+.boot-line { margin: 3px 0; }
+.terminal-output { margin-top: 18px; }
+.output-entry { margin: 0 0 16px; overflow-wrap: anywhere; }
+.command-echo { color: var(--green); }
+.output-text { margin: 5px 0 0; white-space: pre-wrap; color: var(--text); }
+.output-text.success { color: var(--green); }
+.output-text.warning { color: var(--yellow); }
+.output-text.error { color: var(--red); }
+.output-text .muted { color: var(--muted); }
+
+.input-line { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.prompt { flex: 0 0 auto; color: var(--green); font-weight: 600; }
+#command-input {
+  min-width: 0;
+  flex: 1;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  color: var(--text);
+  background: transparent;
+  font: inherit;
+  caret-color: var(--green);
+}
+#command-input:disabled { opacity: .5; }
+.cursor {
+  width: 8px;
+  height: 17px;
+  margin-left: -8px;
+  background: var(--green);
+  animation: blink 1s steps(2, start) infinite;
+  pointer-events: none;
+}
+.terminal-hint { margin: 20px 0 0; font-size: 10px; }
+kbd {
+  padding: 2px 5px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--green);
+  background: #0c1711;
+}
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+}
+.terminal-footer b { color: var(--green-dim); }
+
+@keyframes blink { to { visibility: hidden; } }
+
+@media (max-width: 620px) {
+  body { padding: 10px; }
+  .terminal-shell { min-height: calc(100vh - 20px); border-radius: 8px; }
+  .terminal-header { padding: 0 12px; }
+  .window-title { font-size: 9px; }
+  .terminal-screen { min-height: 0; padding: 20px 14px; font-size: 11px; }
+  .prompt { font-size: 10px; }
+  .terminal-footer { flex-wrap: wrap; justify-content: center; padding: 10px; font-size: 9px; }
+}
